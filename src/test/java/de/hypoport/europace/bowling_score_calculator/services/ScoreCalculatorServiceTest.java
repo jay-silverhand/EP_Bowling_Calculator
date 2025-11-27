@@ -26,7 +26,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(70, score, "Alle offenen Frames korrekt berechnet");
+        assertEquals(70, score);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(20, score, "Spare Bonus korrekt berechnet");
+        assertEquals(20, score);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(26, score, "Strike Bonus korrekt berechnet");
+        assertEquals(26, score);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(40, score, "Strike & Spare Mix Boni korrekt berechnet");
+        assertEquals(40, score);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(20, score, "Letzten Frame mit Bonus korrekt berechnet");
+        assertEquals(20, score);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(25, score, "Letzten Frame mit zwei Boni korrekt berechnet");
+        assertEquals(25, score );
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(6, score, "Letzten Frame ohne Bonus korrekt berechnet");
+        assertEquals(6, score);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class ScoreCalculatorServiceTest {
 
         int score = calculator.calculateGameScore(game);
 
-        assertEquals(300, score, "Perfektes Spiel mit Bonus-Frame & Bonus-Roll korrekt berechnet");
+        assertEquals(300, score);
     }
 
 }
