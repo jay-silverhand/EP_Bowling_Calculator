@@ -31,8 +31,52 @@ public class BowlingScoreCalculatorApplication implements CommandLineRunner {
 
         System.out.println("=== Bowling Game Score Calculator ===");
 
+        handleRegularFrames(sc, frames);
+
+        handleTenthFrame(sc, frames);
+
+        Game game = new Game(frames);
+        int score = service.calculateGameScore(game);
+
+        System.out.println("\n==========================");
+        System.out.println("Final score: " + score);
+        System.out.println("==========================");
+    }
+
+    private void handleTenthFrame(Scanner sc, List<Frame> frames) {
+        System.out.println("Enter 10th frame");
+
+        int roll1 = readInt(sc, "Roll 1: ");
+        int roll2 = readInt(sc, "Roll 2: ");
+
+        boolean isStrike = roll1 == 10;
+        boolean isSpare = !isStrike && roll1 + roll2 == 10;
+
+        BonusRoll bonusRoll1 = null;
+        BonusRoll bonusRoll2 = null;
+
+        if (isStrike || isSpare) {
+            int b1Val = readInt(sc, "Bonus roll 1: ");
+            bonusRoll1 = new BonusRoll(b1Val);
+
+            if (isStrike) {
+                int b2Val = readInt(sc, "Bonus roll 2: ");
+                bonusRoll2 = new BonusRoll(b2Val);
+            }
+        }
+
+        try {
+            frames.add(new TenthFrame(roll1, roll2, bonusRoll1, bonusRoll2));
+        } catch (Exception e) {
+            System.out.println("Invalid input on 10th frame: " + e.getMessage());
+            handleTenthFrame(sc, frames);
+        }
+    }
+
+
+    private void handleRegularFrames(Scanner sc, List<Frame> frames) {
         for (int i = 1; i <= 9; i++) {
-            System.out.println("Enter frame no. :" + i);
+            System.out.println("Enter frame no.: " + i);
 
             int roll1 = readInt(sc, "Roll 1: ");
             int roll2 = readInt(sc, "Roll 2: ");
@@ -44,41 +88,6 @@ public class BowlingScoreCalculatorApplication implements CommandLineRunner {
                 i--;
             }
         }
-
-        System.out.println("Enter 10th frame");
-
-        int r1 = readInt(sc, "Roll 1: ");
-        int r2 = readInt(sc, "Roll 2: ");
-
-        boolean isStrike = r1 == 10;
-        boolean isSpare = !isStrike && r1 + r2 == 10;
-
-        BonusRoll b1 = null;
-        BonusRoll b2 = null;
-
-        if (isStrike || isSpare) {
-            int b1Val = readInt(sc, "Bonus roll 1: ");
-            b1 = new BonusRoll(b1Val);
-
-            if (isStrike) {
-                int b2Val = readInt(sc, "Bonus roll 2 (0–10): ");
-                b2 = new BonusRoll(b2Val);
-            }
-        }
-
-        try {
-            frames.add(new TenthFrame(r1, r2, b1, b2));
-        } catch (Exception e) {
-            System.out.println("Invalid input on 10th frame: " + e.getMessage());
-            return;
-        }
-
-        Game game = new Game(frames);
-        int score = service.calculateGameScore(game);
-
-        System.out.println("\n==========================");
-        System.out.println("Final score: " + score);
-        System.out.println("==========================");
     }
 
     private int readInt(Scanner sc, String prompt) {
