@@ -91,6 +91,14 @@ public class FrameValidatorTest {
     }
 
     @Test
+    void testSecondBonusRollOnSpare(){
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TenthFrame(3, 7, new BonusRoll(10), new BonusRoll(5)));
+
+        assertEquals("Only one bonus roll allowed if spare.", exception.getMessage());
+    }
+
+    @Test
     void testBonusRollScoreTooHigh2(){
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new TenthFrame(3, 7, new BonusRoll(5), new BonusRoll(12)));
